@@ -9,10 +9,8 @@ import java.util.Map;
 public class BiomeLightingRegister extends Event {
     Map<ResourceLocation, Integer> biomeMap = new HashMap<>();
 
-    public BiomeLightingRegister() {}
-
-    public void register(ResourceLocation resourceLocation, int lightLevel) {
-        biomeMap.put(resourceLocation, lightLevel);
+    public void register(ResourceLocation biomeResourceLocation, int lightLevel) {
+        biomeMap.put(biomeResourceLocation, lightLevel);
     }
 
     public Map<ResourceLocation, Integer> getBiomeMap() {

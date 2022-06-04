@@ -54,17 +54,10 @@ loom {
 }
 
 repositories {
-    // Add repositories to retrieve artifacts from in here.
-    // You should only use this when depending on other mods because
-    // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-    // See https://docs.gradle.org/current/userguide/declaring_repositories.html
-    // for more information about repositories.
-
-    // in this example, we need the following maven
-    // to satisfy our dependency for JEI.
+    maven { url "https://maven.shedaniel.me/" }
     maven {
-        name = "Progwml6 (Just Enough Items)"
-        url = "https://dvs1.progwml6.com/files/maven/"
+        name = "cursemaven"
+        url = "https://www.cursemaven.com"
     }
 }
 
@@ -85,19 +78,7 @@ dependencies {
     // your forge dependency, this is **required** when using Forge Loom in forge mode!
     forge "net.minecraftforge:forge:${project.forge_version}"
 
-    // additional dependencies can be specified using loom's regular format
-    // specifying a "mod" dependency (like modImplementation or modApi)
-    // will cause loom to remap the file to your specified mappings
-
-    // in this example, we'll be adding JEI as a dependency
-    // according to their developer example on GitHub
-    // see: https://github.com/mezz/JustEnoughItems/wiki/Getting-Started
-    // compile against the JEI API but do not include it at runtime
-    // don't worry about loom "not finding a forge mod" here,
-    // JEI's api just doesn't have any class with an @Mod annotation
-    modCompileOnly "mezz.jei:jei-1.18.1:${jei_version}:api"
-    // at runtime, use the full JEI jar
-    modRuntimeOnly "mezz.jei:jei-1.18.1:${jei_version}"
+    modImplementation "curse.maven:cloth_config_forge-348521:3546623"
 }
 
 processResources {
