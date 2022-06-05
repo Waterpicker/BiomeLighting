@@ -2,6 +2,7 @@ package com.waterpicker.biomelighting;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.QuartPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ChunkPos;
@@ -23,14 +24,14 @@ public class BiomeLightingSkyEngine extends SkyLightEngine {
 
         BlockGetter blockGetter = chunkSource.getChunkForLighting(chunkPos.x, chunkPos.z);
         if (blockGetter instanceof ChunkAccess chunkAccess) {
-            Biome biome = chunkAccess.getNoiseBiome(
+            Holder<Biome> biome = chunkAccess.getNoiseBiome(
                     QuartPos.fromBlock(blockPos.getX()),
                     QuartPos.fromBlock(blockPos.getY()),
                     QuartPos.fromBlock(blockPos.getZ())
             );
 
-            if (BiomeLighting.getBiomeMap().containsKey(biome.getRegistryName())) {
-                int biomeLightLevel = BiomeLighting.getBiomeMap().get(biome.getRegistryName());
+            if (BiomeLighting.getBiomeMap().containsKey(biome.value().getRegistryName())) {
+                int biomeLightLevel = BiomeLighting.getBiomeMap().get(biome.value().getRegistryName());
 
                 //This may look complex but basically propagate the biomeLightLevel value here!
                 if (targetId != Long.MAX_VALUE && sourceId != Long.MAX_VALUE) {
