@@ -1,4 +1,4 @@
-package com.waterpicker.biomeskylighting;
+package com.waterpicker.biomelighting.data;
 
 import org.apache.logging.log4j.util.TriConsumer;
 

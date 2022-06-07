@@ -1,4 +1,4 @@
-package com.waterpicker.biomeskylighting;
+package com.waterpicker.biomelighting.data;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

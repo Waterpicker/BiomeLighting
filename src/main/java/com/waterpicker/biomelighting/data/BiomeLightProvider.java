@@ -1,10 +1,10 @@
-package com.waterpicker.biomeskylighting;
+package com.waterpicker.biomelighting.data;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
+import com.waterpicker.biomelighting.BiomeSkyLightingData;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.HashCache;

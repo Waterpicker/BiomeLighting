@@ -1,6 +1,6 @@
-package com.waterpicker.biomeskylighting.mixin;
+package com.waterpicker.biomelighting.mixin;
 
-import com.waterpicker.biomeskylighting.BiomeLightingSkyEngine;
+import com.waterpicker.biomelighting.BiomeLightingSkyEngine;
 import net.minecraft.world.level.chunk.LightChunkGetter;
 import net.minecraft.world.level.lighting.LayerLightEngine;
 import net.minecraft.world.level.lighting.LevelLightEngine;

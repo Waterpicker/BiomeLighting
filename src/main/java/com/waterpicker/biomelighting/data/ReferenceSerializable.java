@@ -1,4 +1,4 @@
-package com.waterpicker.biomeskylighting;
+package com.waterpicker.biomelighting.data;
 
 import com.google.common.collect.Multimap;
 

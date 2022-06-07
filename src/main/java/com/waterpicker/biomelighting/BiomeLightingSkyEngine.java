@@ -1,6 +1,7 @@
-package com.waterpicker.biomeskylighting;
+package com.waterpicker.biomelighting;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.QuartPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ChunkPos;
@@ -11,6 +12,7 @@ import net.minecraft.world.level.chunk.LightChunkGetter;
 import net.minecraft.world.level.lighting.SkyLightEngine;
 
 public class BiomeLightingSkyEngine extends SkyLightEngine {
+
     public BiomeLightingSkyEngine(LightChunkGetter chunkProvider) {
         super(chunkProvider);
     }
@@ -24,12 +26,12 @@ public class BiomeLightingSkyEngine extends SkyLightEngine {
 
         BlockGetter blockGetter = chunkSource.getChunkForLighting(chunkPos.x, chunkPos.z);
         if (blockGetter instanceof ChunkAccess chunkAccess) {
-            Biome biome = chunkAccess.getNoiseBiome(
+            Holder<Biome> biome = chunkAccess.getNoiseBiome(
                     QuartPos.fromBlock(blockPos.getX()),
                     QuartPos.fromBlock(blockPos.getY()),
                     QuartPos.fromBlock(blockPos.getZ())
             );
-            lightValue = BiomeMapLoader.getInstance().getLightValue(biome.getRegistryName()).orElse(0);
+            lightValue = BiomeMapLoader.getInstance().getLightValue(biome).orElse(0);
         }
 
         if (world.dimension() == Level.OVERWORLD) { //The Overworld is a use case

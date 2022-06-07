@@ -1,4 +1,4 @@
-package com.waterpicker.biomeskylighting;
+package com.waterpicker.biomelighting;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

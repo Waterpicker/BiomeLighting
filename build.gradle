@@ -47,10 +47,9 @@ dependencies {
     // uncomment this if you want to use yarn mappings
     // mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 
-    // your forge dependency, this is **required** when using Forge Loom in forge mode!
-    // forge "net.minecraftforge:forge:${project.forge_version}"
-
-    modImplementation "curse.maven:cloth_config_forge-348521:3782775"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+//    modImplementation "curse.maven:cloth_config_forge-348521:3782775"
 }
 
 processResources {
