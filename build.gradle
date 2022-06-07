@@ -14,34 +14,6 @@ loom {
     // and want loom to stop warning you about their license
     silentMojangMappingsLicense()
 
-    // since loom 0.10, you are **required** to use the
-    // "forge" block to configure forge-specific features,
-    // such as the mixinConfigs array or datagen
-    forge {
-        // specify the mixin configs used in this mod
-        // this will be added to the jar manifest as well!
-        mixinConfigs = [
-                "biomelighting.mixins.json"
-        ]
-
-        // missing access transformers?
-        // don't worry, you can still use them!
-        // note that your AT *MUST* be located at
-        // src/main/resources/META-INF/accesstransformer.cfg
-        // to work as there is currently no config option to change this.
-        // also, any names used in your access transformer will need to be
-        // in SRG mapped ("func_" / "field_" with MCP class names) to work!
-        // (both of these things may be subject to change in the future)
-
-        // this will create a data generator configuration
-        // that you can use to automatically generate assets and data
-        // using architectury loom. Note that this currently *only* works
-        // for forge projects made with architectury loom!
-        dataGen {
-            mod project.mod_id
-        }
-    }
-
     // This allows you to modify your launch configurations,
     // for example to add custom arguments. In this case, we want
     // the data generator to check our resources directory for
@@ -76,9 +48,9 @@ dependencies {
     // mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 
     // your forge dependency, this is **required** when using Forge Loom in forge mode!
-    forge "net.minecraftforge:forge:${project.forge_version}"
+    // forge "net.minecraftforge:forge:${project.forge_version}"
 
-    modImplementation "curse.maven:cloth_config_forge-348521:3546623"
+    modImplementation "curse.maven:cloth_config_forge-348521:3782775"
 }
 
 processResources {
