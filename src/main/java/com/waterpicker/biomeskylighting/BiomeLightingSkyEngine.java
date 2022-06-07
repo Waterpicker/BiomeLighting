@@ -1,16 +1,14 @@
 package com.waterpicker.biomeskylighting;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.QuartPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.LightChunkGetter;
 import net.minecraft.world.level.lighting.SkyLightEngine;
-
-import java.util.OptionalInt;
 
 public class BiomeLightingSkyEngine extends SkyLightEngine {
     public BiomeLightingSkyEngine(LightChunkGetter chunkProvider) {
@@ -19,7 +17,8 @@ public class BiomeLightingSkyEngine extends SkyLightEngine {
 
     protected int computeLevelFromNeighbor(long sourceId, long targetId, int level) {
         int propagatedLevel = super.computeLevelFromNeighbor(sourceId, targetId, level);
-
+        int lightValue = propagatedLevel;
+        Level world = ((Level) chunkSource.getLevel());
         BlockPos blockPos = BlockPos.of(targetId);
         ChunkPos chunkPos = new ChunkPos(blockPos);
 
@@ -30,13 +29,18 @@ public class BiomeLightingSkyEngine extends SkyLightEngine {
                     QuartPos.fromBlock(blockPos.getY()),
                     QuartPos.fromBlock(blockPos.getZ())
             );
-
-            int i = BiomeMapLoader.getInstance().getLightValue(biome.getRegistryName()).orElse(20);
-
-            return Math.min(i, propagatedLevel);
+            lightValue = BiomeMapLoader.getInstance().getLightValue(biome.getRegistryName()).orElse(0);
         }
 
-        return propagatedLevel;
+        if (world.dimension() == Level.OVERWORLD) { //The Overworld is a use case
+            if (propagatedLevel <= 7) {
+                return Math.max(lightValue, propagatedLevel);
+            } else {
+                return Math.min(lightValue, propagatedLevel);
+            }
+        } else {
+            return Math.min(lightValue, propagatedLevel);
+        }
     }
 
 //    @Override
