@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "biomelighting",
+  "version": "1.0.0-fabric",
+
+  "name": "Biome Lighting",
+  "description": "",
+  "authors": [
+    "Mysticpasta1, Waterpicker"
+  ],
+  "contact": {
+    "homepage": "https://mystic.hypherionmc.me/",
+    "sources": "https://github.com/Waterpicker/BiomeLighting",
+    "issues": "https://github.com/Waterpicker/BiomeLighting/issues"
+  },
+
+  "license": "LGPL3",
+  "icon": "logo.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.waterpicker.biomelighting.BiomeLightingInitializer"
+    ],
+    "client": []
+  },
+  "mixins": [
+    "biomelighting.mixins.json"
+  ],
+  "accessWidener": "biomelighting.accesswidener",
+
+  "depends": {
+    "fabricloader": ">=0.7.4",
+    "fabric": "*",
+    "minecraft": "1.18.x"
+  }
+}
