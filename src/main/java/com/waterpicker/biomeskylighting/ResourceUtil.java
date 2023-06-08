@@ -72,7 +72,7 @@ public class ResourceUtil {
 
 	public static <R> R loadResource(ResourceManager manager, ResourceLocation resourceKey, Function<InputStream, R> reader) {
 		try {
-			return reader.apply(manager.getResource(resourceKey).getInputStream());
+			return reader.apply(manager.getResource(resourceKey).get().open());
 		}
 		catch (IOException e) {
 			throw new RuntimeException(e);
@@ -80,13 +80,13 @@ public class ResourceUtil {
 	}
 
 	public static  <K, T, M extends Map<K, T>> CompletableFuture<M> loadResourcePathToMap(ResourceManager manager, String startingPath, String extension, M map, BiFunction<InputStream, K, T> reader, BiFunction<String, ResourceLocation, K> keyProvider) {
-		Collection<ResourceLocation> ids = manager.listResources(startingPath, str -> str.endsWith(extension));
+		Collection<ResourceLocation> ids = manager.listResources(startingPath, str -> str.getPath().endsWith(extension)).keySet();
 		return CompletableFuture.supplyAsync(() -> {
 			map.putAll(ids.parallelStream().unordered().collect(new ExceptionHandlingCollector<>(Collectors.toConcurrentMap(
 					id -> keyProvider.apply(startingPath, id),
 					id -> {
 						try {
-							return reader.apply(manager.getResource(id).getInputStream(), keyProvider.apply(startingPath, id));
+							return reader.apply(manager.getResource(id).get().open(), keyProvider.apply(startingPath, id));
 						} catch (IOException | RuntimeException e) {
 							throw new RuntimeException(e);
 						}
@@ -97,11 +97,11 @@ public class ResourceUtil {
 	}
 
 	public static  <T, M extends Collection<T>> CompletableFuture<M> loadResourcePathToCollection(ResourceManager manager, String startingPath, String extension, M collection, BiFunction<InputStream, ResourceLocation, T> reader) {
-		Collection<ResourceLocation> ids = manager.listResources(startingPath, str -> str.endsWith(extension));
+		Collection<ResourceLocation> ids = manager.listResources(startingPath, str -> str.getPath().endsWith(extension)).keySet();
 		return CompletableFuture.supplyAsync(() -> {
 			collection.addAll(ids.parallelStream().unordered().map(id -> {
 				try {
-					return reader.apply(manager.getResource(id).getInputStream(), id);
+					return reader.apply(manager.getResource(id).get().open(), id);
 				} catch (Exception e) {
 					LOGGER.error("Error loading resource: " + id, e);
 					return null;

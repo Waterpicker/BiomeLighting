@@ -2,7 +2,7 @@
   "required": true,
   "package": "com.waterpicker.biomeskylighting.mixin",
   "compatibilityLevel": "JAVA_17",
-  "refmap": "biomelighting-refmap.json",
+  "refmap": "biomelighting.refmap.json",
   "mixins": [
     "LevelLightEngineMixin"
   ],

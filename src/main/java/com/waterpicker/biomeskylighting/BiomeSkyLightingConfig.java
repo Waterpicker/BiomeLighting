@@ -1,10 +1,9 @@
 package com.waterpicker.biomeskylighting;
 
-import me.shedaniel.autoconfig.ConfigData;
 import net.minecraftforge.common.ForgeConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
-public class BiomeSkyLightingConfig implements ConfigData {
+public class BiomeSkyLightingConfig {
 
     public static final ForgeConfigSpec CONFIG_SPEC;
     public static final BiomeSkyLightingConfig INSTANCE;

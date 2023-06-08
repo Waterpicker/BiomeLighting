@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.HashCache;
@@ -22,7 +23,6 @@ import java.util.function.BiConsumer;
 
 public abstract class BiomeLightProvider implements DataProvider {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
 
     private DataGenerator generator;
 
@@ -30,15 +30,17 @@ public abstract class BiomeLightProvider implements DataProvider {
         this.generator = generator;
     }
 
+    abstract protected void generateLights(BiConsumer<String, JsonElement> consumer);
+
     @Override
-    public void run(HashCache cache) {
+    public void run(CachedOutput cache) {
         Path path = generator.getOutputFolder();
 
         BiConsumer<String, JsonElement> consumer = (identifier, json)  -> {
             java.nio.file.Path outputPath = getOutput(path, identifier);
 
             try {
-                DataProvider.save(GSON, cache, json, outputPath);
+                DataProvider.saveStable(cache, json, outputPath);
             } catch (IOException var6) {
                 LOGGER.error("Couldn't save biomelight {}", outputPath, var6);
             }
@@ -46,8 +48,6 @@ public abstract class BiomeLightProvider implements DataProvider {
 
         generateLights(consumer);
     }
-
-    abstract protected void generateLights(BiConsumer<String, JsonElement> consumer);
 
     @Override
     public String getName() {
@@ -69,11 +69,16 @@ public abstract class BiomeLightProvider implements DataProvider {
 
         public BiomeLightBuilder biomeLight(ResourceLocation biome, int lightLevel) {
             biomeLightMap.put(biome, lightLevel);
+            new BiomeSkyLightingRegister().biomeMap = biomeLightMap;
             return this;
         }
 
         public BiomeLightBuilder biomeLight(ResourceKey<Biome> biome, int lightLevel) {
             return biomeLight(biome.location(), lightLevel);
+        }
+
+        public Map<ResourceLocation, Integer> getBiomeLightMap() {
+            return biomeLightMap;
         }
 
         public BiomeLightBuilder replace(boolean replace) {

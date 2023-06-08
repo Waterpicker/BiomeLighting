@@ -15,9 +15,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LevelLightEngine.class)
 abstract public class LevelLightEngineMixin implements LightEventListener {
-    @Shadow @Final @Mutable private LayerLightEngine<?, ?> skyEngine;
+    @Shadow
+    @Final
+    @Mutable
+    private LayerLightEngine<?, ?> skyEngine;
+
     @Inject(at = @At("TAIL"), method = "<init>")
     public void init(LightChunkGetter chunkProvider, boolean hasBlockLight, boolean hasSkyLight, CallbackInfo ci) {
-            skyEngine = hasSkyLight ? new BiomeLightingSkyEngine(chunkProvider) : null;
+        skyEngine = hasSkyLight ? new BiomeLightingSkyEngine(chunkProvider) : null;
     }
 }

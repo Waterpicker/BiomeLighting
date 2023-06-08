@@ -26,6 +26,10 @@ public class BiomeMapLoader implements ResourceManagerReloadListener {
 		return INSTANCE;
 	}
 
+	public Map<ResourceLocation, Integer> getBiomeMap() {
+		return biomeMap;
+	}
+
 	@Override
 	public void onResourceManagerReload(ResourceManager manager) {
 		biomeMap.clear();
